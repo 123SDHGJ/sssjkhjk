@@ -1,271 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>sssff</title>
+    <title>Y7Y7Y7</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Share Tech Mono', monospace; }
+        body { 
+            background: #0a0a0f; 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            overflow-x: hidden; 
+            padding: 30px 20px;
         }
-        
-        body {
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            color: #fff;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+        body::before { 
+            content: ''; 
+            position: absolute; 
+            top: 0; left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: linear-gradient(rgba(10, 10, 15, 0.9), rgba(10, 10, 15, 0.9)), 
+                        repeating-linear-gradient(0deg, rgba(0, 255, 170, 0.02) 0px, rgba(0, 255, 170, 0.02) 1px, transparent 2px, transparent 5px); 
+            z-index: -1; 
         }
-        
-        .container {
-            max-width: 450px;
-            width: 100%;
-            height: 500px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
-            border-radius: 24px;
-            padding: 30px 25px;
-            box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+        .container { 
+            max-width: 2200px; 
+            width: 100%; 
+            margin: 0 auto;
+            z-index: 2; 
         }
-        
-        .header {
-            text-align: center;
-            width: 100%;
+        h1.main-title { 
+            text-align: center; 
+            margin-bottom: 4rem; 
+            color: #00ffaa; 
+            font-weight: 400; 
+            font-size: 4rem; 
+            letter-spacing: 0.15em; 
+            text-transform: uppercase; 
+            text-shadow: 0 0 10px #00ffaa, 0 0 20px #00ffaa; 
+            animation: glitch-text 3s infinite; 
         }
-        
-        h1 {
-            font-size: 1.7rem;
-            margin-bottom: 8px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            background: linear-gradient(90deg, #fff, #a8c0ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+        @keyframes glitch-text { 
+            0%, 100% { transform: translate(0); } 
+            93% { transform: translate(0); } 
+            94% { transform: translate(-2px, 2px); } 
+            95% { transform: translate(2px, -2px); } 
+            96% { transform: translate(-2px); } 
         }
-        
-        .subtitle {
-            font-size: 0.9rem;
-            opacity: 0.7;
-            line-height: 1.4;
-            font-weight: 400;
+        .cards { 
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: center; 
+            gap: 50px; 
+            margin: 0 auto;
         }
-        
-        .buttons-container {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            gap: 25px;
-            margin: 25px 0;
-        }
-        
-        .promo-button {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 60px;
-            border-radius: 50px;
+        .card { 
+            width: 360px; 
+            height: 110px; 
+            background: rgba(20, 25, 40, 0.8); 
+            border: 1px solid #222844; 
+            border-radius: 40px / 110px; 
+            padding: 20px 25px; 
+            display: flex; 
+            flex-direction: row; 
+            align-items: center; 
+            text-align: left; 
+            position: relative; 
+            overflow: hidden; 
+            transition: all 0.4s ease; 
+            box-shadow: inset 0 0 15px rgba(0, 10, 30, 0.5); 
             text-decoration: none;
-            color: white;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
+        }
+        .card::before { 
+            content: ''; 
+            position: absolute; 
+            top: -100%; 
+            left: 0; 
+            width: 100%; 
+            height: 2px; 
+            background: linear-gradient(90deg, transparent, #00ffaa); 
+            animation: scanline 3s linear infinite; 
+            border-radius: inherit; 
+        }
+        @keyframes scanline { 
+            0% { top: -100%; } 
+            100% { top: 100%; } 
+        }
+        .card:hover { 
+            border-color: #00ffaa; 
+            box-shadow: 0 0 15px rgba(0, 255, 170, 0.4), inset 0 0 15px rgba(0, 255, 170, 0.1); 
+            transform: translateY(-5px) scale(1.03); 
+        }
+        .icon { 
+            font-size: 1.8rem; 
+            margin-right: 18px; 
+            filter: drop-shadow(0 0 3px currentColor); 
+            min-width: 50px; 
+            text-align: center; 
+        }
+        .text-content { 
+            flex: 1; 
             overflow: hidden;
-            width: 100%;
-            padding: 0 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
         }
+        h3 { 
+            color: #00ffaa; 
+            margin-bottom: 5px; 
+            font-weight: 400; 
+            font-size: 1.1rem; 
+            text-transform: uppercase; 
+            letter-spacing: 0.08em; 
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        p { 
+            color: #a0b0ff; 
+            line-height: 1.4; 
+            font-size: 0.75rem; 
+            margin-bottom: 8px; 
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .btn { 
+            background: transparent; 
+            color: #00ffaa; 
+            border: 1px solid #00ffaa; 
+            padding: 5px 12px; 
+            border-radius: 0; 
+            font-weight: 400; 
+            font-size: 0.75rem; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            position: relative; 
+            overflow: hidden; 
+        }
+        .btn::before { content: '>_ '; }
+        .card:hover .btn { background: rgba(0, 255, 170, 0.1); }
         
-        .promo-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+        @media (max-width: 2200px) { .container { max-width: 1800px; } }
+        @media (max-width: 1800px) { .cards { gap: 40px; } }
+        @media (max-width: 1600px) { .container { max-width: 1400px; } .cards { gap: 35px; } }
+        @media (max-width: 1400px) { .cards { gap: 30px; } }
+        @media (max-width: 1200px) { .cards { gap: 25px; } }
+        @media (max-width: 992px) { .cards { gap: 20px; } }
+        @media (max-width: 768px) {
+            h1.main-title { font-size: 2.2rem; margin-bottom: 3rem; }
+            .cards { gap: 15px; }
+            .card { width: 100%; max-width: 360px; height: 105px; padding: 15px 20px; border-radius: 35px / 100px; }
+            .icon { font-size: 1.6rem; margin-right: 15px; min-width: 45px; }
         }
-        
-        .promo-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transform: translateX(-100%);
-            transition: transform 0.7s;
-        }
-        
-        .promo-button:hover::before {
-            transform: translateX(100%);
-        }
-        
-        .button-1 {
-            background: linear-gradient(135deg, #FF6B6B, #FF8E8E);
-        }
-        
-        .button-2 {
-            background: linear-gradient(135deg, #4ECDC4, #6BFFE6);
-        }
-        
-        .button-3 {
-            background: linear-gradient(135deg, #A166AB, #D8B4E2);
-        }
-        
-        .button-4 {
-            background: linear-gradient(135deg, #FFD166, #FFE8A3);
-            color: #333;
-        }
-        
-        .button-title {
-            font-size: 1.05rem;
-            font-weight: 600;
-            text-align: center;
-            letter-spacing: -0.3px;
-        }
-        
-        .button-desc {
-            font-size: 0.75rem;
-            opacity: 0.85;
-            text-align: center;
-            margin-top: 4px;
-            font-weight: 400;
-        }
-        
-        .badge {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.25);
-            padding: 2px 10px;
-            border-radius: 10px;
-            font-size: 0.65rem;
-            margin-left: 8px;
-            font-weight: 600;
-            backdrop-filter: blur(5px);
-        }
-        
-        .footer {
-            font-size: 0.75rem;
-            opacity: 0.5;
-            text-align: center;
-            width: 100%;
-            font-weight: 400;
-        }
-        
-        @media (max-width: 480px) {
-            .container {
-                height: auto;
-                min-height: 500px;
-                padding: 25px 20px;
-            }
-            
-            h1 {
-                font-size: 1.5rem;
-            }
-            
-            .button-title {
-                font-size: 1rem;
-            }
-            
-            .button-desc {
-                font-size: 0.7rem;
-            }
-            
-            .buttons-container {
-                gap: 20px;
-            }
-        }
+        @media (max-width: 576px) { .cards { gap: 12px; } body { padding: 20px 15px; } h1.main-title { font-size: 2rem; } }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>永久y78c.cc网址</h1>
-            <p class="subtitle">温馨提示；微信扫码进不去换浏览器扫码</p>
-        </div>
-        
-        <div class="buttons-container">
-             <a href="https://people-img-cos.rednet.cn/2025/12-29/1766996120519__aWRkLmpwZw.jpg?response-content-type=text/html&code=aubr96" class="promo-button button-1" target="_blank">
-                <div class="button-title">金香玫瑰<span class="badge"></span></div>
-                <div class="button-desc"></div>
-            </a> 
-            
-            <a href="http://1206.pgzz.wse1l.com/a/626269?7pff" class="promo-button button-4" target="_blank">
-                <div class="button-title">白玫瑰</div>
-                <div class="button-desc"></div>
-            </a>
-            
-            <a href="http://genfcvci.u.czxbw.com/s/15G6DS" class="promo-button button-1" target="_blank">
-                <div class="button-title">红玫瑰<span class="badge"></span></div>
-                <div class="button-desc"></div>
-            </a>
-            
-            <a href="http://dsjhfgsdfdgs.cn/syb/" class="promo-button button-2" target="_blank">
-                <div class="button-title">蓝玫瑰</div>
-                <div class="button-desc"></div>
-            </a>
-            
-            <a href="https://mc-public-tz.taizhou.com.cn/87896997243868548326503263773188292.html?atecode=NTAxLERsYTJVLDY" class="promo-button button-3" target="_blank">
-                <div class="button-title">粉玫瑰<span class="badge"></span></div>
-                <div class="button-desc"></div>
-            </a>
-            
-            
-        </div>
-        
-        <div class="footer">
-            <p></p>
+        <h1 class="main-title glitch">永久Y78C.CC网址</h1>
+        <div class="cards">
+            <a href="#link1" class="card"><div class="icon" style="color: #00ffaa;">⏣</div><div class="text-content"><h3>乱战缓存</h3><p>令晚电影都有</p><div class="btn">点我这里</div></div></a>
+            <a href="#link2" class="card"><div class="icon" style="color: #ff00aa;">⟁</div><div class="text-content"><h3>野兽缓存</h3><p>令晚电影都有</p><div class="btn">点我这里</div></div></a>
+            <a href="#link3" class="card"><div class="icon" style="color: #00aaff;">▣</div><div class="text-content"><h3>人妻缓存</h3><p>令晚电影都有</p><div class="btn">点我这里</div></div></a>
+            <a href="#link4" class="card"><div class="icon" style="color: #ffaa00;">◈</div><div class="text-content"><h3>幼女缓存</h3><p>令晚电影都有</p><div class="btn">点我这里</div></div></a>
+            <a href="#link5" class="card"><div class="icon" style="color: #ff00ff;">◊</div><div class="text-content"><h3>车震缓存</h3><p>令晚电影都有</p><div class="btn">点我这里</div></div></a>
         </div>
     </div>
-
-    <script>
-        // 添加点击动画效果
-        document.querySelectorAll('.promo-button').forEach(button => {
-            button.addEventListener('click', function(e) {
-                // 创建点击效果
-                const effect = document.createElement('div');
-                effect.style.position = 'absolute';
-                effect.style.borderRadius = '50%';
-                effect.style.backgroundColor = 'rgba(255, 255, 255, 0.4)';
-                effect.style.width = '8px';
-                effect.style.height = '8px';
-                effect.style.left = (e.offsetX - 4) + 'px';
-                effect.style.top = (e.offsetY - 4) + 'px';
-                effect.style.pointerEvents = 'none';
-                effect.style.animation = 'ripple 0.6s ease-out';
-                
-                this.appendChild(effect);
-                
-                setTimeout(() => {
-                    effect.remove();
-                }, 600);
-            });
-        });
-
-        // 添加CSS动画
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes ripple {
-                to {
-                    transform: scale(20);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-    </script>
 </body>
-
 </html>
-
-
-
-
 
