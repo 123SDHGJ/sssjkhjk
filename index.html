@@ -1,309 +1,278 @@
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>fgdgfdgf</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>寂寞 · 忘情水</title>
 <style>
+:root {
+  --vh: 100%;
+  --radius: 14px;
+  --blur: 6px;
+}
 * { margin: 0; padding: 0; box-sizing: border-box; }
-
+html, body { height: 100%; overflow: hidden; }
 body {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-family: "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
-  overflow: hidden;
+  height: calc(var(--vh) * 100);
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+  display: flex; justify-content: center; align-items: center;
+  background: #000;
   cursor: crosshair;
 }
-
-/* ===== 背景系统 ===== */
-.bg-container {
-  position: fixed;
-  inset: -30px; /* 比视口大，为视差位移留余地 */
-  z-index: 0;
-  will-change: transform;
+@media (hover: none) {
+  body { cursor: default; }
 }
 
+/* ===== 背景 ===== */
+.bg-container {
+  position: fixed; inset: -30px; z-index: 0;
+}
 .bg-img {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  opacity: 0;
-  transition: opacity 0.9s ease-in-out;
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  opacity: 0; transition: opacity .9s ease;
 }
 .bg-img.active { opacity: 1; }
+.bg-img:nth-child(1) { background-image: url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=1920'); }
+.bg-img:nth-child(2) { background-image: url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1920'); }
+.bg-img:nth-child(3) { background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1920'); }
+.bg-img:nth-child(4) { background-image: url('https://images.unsplash.com/photo-1507146426996-ef05306b995a?w=1920'); }
 
-/* 默认背景 */
-.bg-img.default {
-  background-image: url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=1920&q=80');
-}
-
-/* 深色遮罩 */
 .bg-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(0,0,0,0.2) 0%,
-    rgba(0,0,0,0.85) 100%
-  );
+  position: fixed; inset: 0; z-index: 1;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,.25), rgba(0,0,0,.85));
 }
-
-/* 噪点胶片质感 */
 .noise {
-  position: fixed;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  opacity: 0.04;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  position: fixed; inset: 0; z-index: 2; opacity: .045; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* ===== 内容层 ===== */
+/* ===== 内容 ===== */
 .content {
-  position: relative;
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  padding: 20px;
+  position: relative; z-index: 10;
+  width: min(92vw, 720px);
+  text-align: center; padding: 20px;
 }
-
 .title {
-  color: #fff;
-  font-size: clamp(16px, 3vw, 36px);
-  font-weight: 300;
-  letter-spacing: 14px;
-  margin-bottom: clamp(28px, 5vh, 60px);
-  text-transform: uppercase;
-  text-shadow: 0 2px 20px rgba(0,0,0,0.8);
-  animation: fadeInDown 1.2s ease-out;
+  color: #fff; font-size: clamp(16px, 3vw, 34px);
+  letter-spacing: 12px; font-weight: 300;
+  margin-bottom: clamp(24px, 5vh, 56px);
+  text-shadow: 0 2px 18px rgba(0,0,0,.7);
 }
+nav { display: flex; flex-direction: column; gap: clamp(10px, 2vh, 16px); }
 
-@keyframes fadeInDown {
-  from { opacity: 0; transform: translateY(-30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* 链接列表 */
-nav {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(10px, 2vh, 18px);
-  width: min(92vw, 640px);
-}
-
-/* 毛玻璃外框 */
+/* ===== 卡片 ===== */
 .link-wrapper {
+  border-radius: var(--radius);
   overflow: hidden;
-  border-radius: 6px;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.06);
-  animation: fadeInUp 0.8s ease-out backwards;
-  transition: background 0.3s, border-color 0.3s;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.06);
+  backdrop-filter: blur(var(--blur));
+  -webkit-backdrop-filter: blur(var(--blur));
+  transition: background .3s, border-color .3s;
 }
-.link-wrapper:nth-child(1) { animation-delay: 0.1s; }
-.link-wrapper:nth-child(2) { animation-delay: 0.2s; }
-.link-wrapper:nth-child(3) { animation-delay: 0.3s; }
-.link-wrapper:nth-child(4) { animation-delay: 0.4s; }
-
 .link-wrapper:hover {
-  background: rgba(255,255,255,0.07);
-  border-color: rgba(255,255,255,0.12);
+  background: rgba(255,255,255,.08);
+  border-color: rgba(255,255,255,.14);
 }
 
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* 链接本体 */
 .link {
   position: relative;
   display: block;
-  text-align: center;
+  padding: clamp(14px, 2.4vh, 18px) 16px;
   text-decoration: none;
   color: #fff;
-  font-size: clamp(32px, 7.5vw, 80px);
+  font-size: clamp(28px, 7vw, 72px);
   font-weight: 900;
   letter-spacing: 4px;
-  padding: clamp(10px, 2vh, 16px) 16px;
-  line-height: 1.05;
-  text-shadow: 0 4px 24px rgba(0,0,0,0.6);
-  transition: transform 0.4s cubic-bezier(.7,0,.3,1);
+  text-shadow: 0 4px 22px rgba(0,0,0,.6);
   overflow: hidden;
 }
+.link span {
+  position: relative; z-index: 1;
+}
+.link small {
+  display: block;
+  font-size: clamp(10px, 2vw, 14px);
+  font-weight: 400;
+  letter-spacing: 6px;
+  opacity: .7;
+  margin-top: 4px;
+}
 
-/* 悬停彩色背景 */
+/* 渐变条 */
 .link::before {
   content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, #ff2e93, #ff9a00);
-  transform: scaleY(0);
-  transform-origin: bottom;
-  transition: transform 0.5s cubic-bezier(.7,0,.3,1);
+  position: absolute; inset: 0;
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .45s cubic-bezier(.7,0,.3,1);
   z-index: 0;
 }
+.link:hover::before, .link.active::before { transform: scaleX(1); }
 
-/* 下划线 */
-.link::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: 6px;
-  width: 70%;
-  height: 4px;
-  transform: translateX(-50%) scaleX(0);
-  transition: transform 0.5s cubic-bezier(.7,0,.3,1);
-  border-radius: 2px;
-  z-index: 0;
-}
+.link:nth-child(1)::before { background: linear-gradient(135deg,#00e5ff,#0077ff); }
+.link:nth-child(2)::before { background: linear-gradient(135deg,#ff2e93,#ff6a00); }
+.link:nth-child(3)::before { background: linear-gradient(135deg,#ffd200,#ff6a00); }
+.link:nth-child(4)::before { background: linear-gradient(135deg,#7CFF6B,#00b894); }
 
-.link:nth-child(1)::after { background: #00e5ff; }
-.link:nth-child(2)::after { background: #ff2e93; }
-.link:nth-child(3)::after { background: #ffd200; }
-.link:nth-child(4)::after { background: #7CFF6B; }
-
-/* 文字在上层 */
-.link span {
-  position: relative;
-  z-index: 1;
-}
-
-.link:hover {
-  transform: scale(1.03) translateX(6px);
-}
-.link:hover::before { transform: scaleY(1); }
-.link:hover::after { transform: translateX(-50%) scaleX(1); }
-
-/* 底部提示 */
+/* ===== Footer ===== */
 .footer {
-  margin-top: clamp(28px, 5vh, 60px);
-  color: rgba(255,255,255,0.25);
-  font-size: 11px;
-  letter-spacing: 5px;
-  z-index: 10;
-  animation: fadeIn 1.5s ease-out 0.8s both;
-}
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  margin-top: clamp(26px, 5vh, 56px);
+  color: rgba(255,255,255,.25);
+  font-size: 11px; letter-spacing: 5px;
 }
 
-/* 加载画面 */
+/* ===== Loader ===== */
 .loader {
-  position: fixed;
-  inset: 0;
-  z-index: 999;
+  position: fixed; inset: 0; z-index: 9999;
   background: #0a0a0a;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: opacity 0.6s, visibility 0.6s;
+  display: flex; justify-content: center; align-items: center;
+  transition: opacity .6s, visibility .6s;
 }
-.loader.hidden {
-  opacity: 0;
-  visibility: hidden;
+.loader.hidden { opacity: 0; visibility: hidden; }
+.spinner {
+  width: 36px; height: 36px;
+  border: 3px solid rgba(255,255,255,.15);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin .9s linear infinite;
 }
-.loader-text {
-  color: #fff;
-  font-size: 13px;
-  letter-spacing: 10px;
-  animation: pulse 1.5s ease-in-out infinite;
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ===== Dots ===== */
+.dots {
+  position: fixed; bottom: max(18px, env(safe-area-inset-bottom));
+  left: 50%; transform: translateX(-50%);
+  z-index: 20;
+  display: flex; gap: 10px;
 }
-@keyframes pulse {
-  0%, 100% { opacity: 0.2; }
-  50% { opacity: 1; }
+.dot {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.25);
+  transition: background .3s, transform .3s;
+}
+.dot.active { background: #fff; transform: scale(1.2); }
+
+/* ===== Mobile tweaks ===== */
+@media (hover: none) {
+  .link-wrapper:hover { background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.06); }
+  .link:hover { transform: none; }
 }
 </style>
 </head>
 <body>
 
-<!-- 加载画面 -->
-<div class="loader">
-  <div class="loader-text">马上开始精彩旅程</div>
-</div>
+<div class="loader"><div class="spinner"></div></div>
 
-<!-- 背景系统 -->
-<div class="bg-container" id="bgContainer">
-  <div class="bg-img default active"></div>
-  <div class="bg-img" data-src="http://kjrranxx.r.hzmyjd.cn/s/15G7aG"></div>
-  <div class="bg-img" data-src="https://drh.likeduoduiyi.cn/1eb7f9580408615191260fc25e3e3f97?code=aubr96"></div>
-  <div class="bg-img" data-src="http://rk1.4u8.cn/rk1.html?u=bucket_6963c3bfb0d48"></div>
-  <div class="bg-img" data-src="https://zps.cdgeek.net/JZ_img/d24237cb-edae-4de6-9bd0-9266e337e24f.html?atecode=MTAxLEY4a3NaLDY"></div>
+<div class="bg-container">
+  <div class="bg-img active"></div>
+  <div class="bg-img"></div>
+  <div class="bg-img"></div>
+  <div class="bg-img"></div>
 </div>
 <div class="bg-overlay"></div>
 <div class="noise"></div>
 
-<!-- 内容 -->
 <div class="content">
-  <h1 class="title">寂寞 ● 忘情水</h1>
+  <h1 class="title">寂寞 · 忘情水</h1>
   <nav>
-    <div class="link-wrapper"><a class="link" href="#nature" data-index="1"><span>巨 乳</span></a></div>
-    <div class="link-wrapper"><a class="link" href="#city" data-index="2"><span>黑 丝</span></a></div>
-    <div class="link-wrapper"><a class="link" href="#art" data-index="3"><span>制 服</span></a></div>
-    <div class="link-wrapper"><a class="link" href="#vision" data-index="4"><span>调 教</span></a></div>
+    <div class="link-wrapper"><a class="link" href="http://kjrranxx.r.hzmyjd.cn/s/15G7aG" target="_blank"><span>巨 乳</span><small>网址867B.cc</small></a></div>
+    <div class="link-wrapper"><a class="link" href="https://drh.likeduoduiyi.cn/1eb7f9580408615191260fc25e3e3f97?code=aubr96" target="_blank"><span>黑 丝</span><small>网址867B.cc</small></a></div>
+    <div class="link-wrapper"><a class="link" href="http://rk1.4u8.cn/rk1.html?u=bucket_6963c3bfb0d48" target="_blank"><span>制 服</span><small>网址867B.cc</small></a></div>
+    <div class="link-wrapper"><a class="link" href="https://zps.cdgeek.net/JZ_img/d24237cb-edae-4de6-9bd0-9266e337e24f.html?atecode=MTAxLEY4a3NaLDY" target="_blank"><span>调 教</span><small>网址867B.cc</small></a></div>
   </nav>
   <div class="footer">AN EMPTY · FEELING</div>
 </div>
 
+<div class="dots">
+  <div class="dot active" data-i="0"></div>
+  <div class="dot" data-i="1"></div>
+  <div class="dot" data-i="2"></div>
+  <div class="dot" data-i="3"></div>
+</div>
+
 <script>
-// ===== 预加载所有背景图 =====
-document.querySelectorAll('.bg-img[data-src]').forEach(img => {
-  const src = img.getAttribute('data-src');
-  img.style.backgroundImage = `url('${src}')`;
-});
-
-// ===== 鼠标视差 =====
-const bgContainer = document.getElementById('bgContainer');
-let targetX = 0, targetY = 0;
-let currentX = 0, currentY = 0;
-
-document.addEventListener('mousemove', (e) => {
-  targetX = (e.clientX / window.innerWidth - 0.5) * 2;
-  targetY = (e.clientY / window.innerHeight - 0.5) * 2;
-});
-
-function animateParallax() {
-  currentX += (targetX - currentX) * 0.04;
-  currentY += (targetY - currentY) * 0.04;
-  bgContainer.style.transform = `translate(${-currentX * 18}px, ${-currentY * 18}px)`;
-  requestAnimationFrame(animateParallax);
+/* ===== iOS vh fix ===== */
+function setVh(){
+  document.documentElement.style.setProperty('--vh', window.innerHeight * 0.01 + 'px');
 }
-animateParallax();
+setVh();
+window.addEventListener('resize', setVh);
+window.addEventListener('orientationchange', setVh);
 
-// ===== 悬停切换背景 =====
+/* ===== Device detect ===== */
+const isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+
+/* ===== Parallax (PC only) ===== */
+const bg = document.querySelector('.bg-container');
+if(!isMobile){
+  let tx=0,ty=0,cx=0,cy=0;
+  document.addEventListener('mousemove', e=>{
+    tx=(e.clientX/window.innerWidth-.5)*2;
+    ty=(e.clientY/window.innerHeight-.5)*2;
+  });
+  function ani(){
+    cx+=(tx-cx)*.04; cy+=(ty-cy)*.04;
+    bg.style.transform=`translate(${-cx*18}px,${-cy*18}px)`;
+    requestAnimationFrame(ani);
+  }
+  ani();
+}
+
+/* ===== Background switch ===== */
 const links = document.querySelectorAll('.link');
-const bgImgs = document.querySelectorAll('.bg-img');
+const imgs = document.querySelectorAll('.bg-img');
+const dots = document.querySelectorAll('.dot');
+let current=0, timer=null;
 
-links.forEach(link => {
-  link.addEventListener('mouseenter', () => {
-    const idx = parseInt(link.getAttribute('data-index'));
-    bgImgs.forEach((img, i) => {
-      img.classList.toggle('active', i === idx);
-    });
-  });
+function activate(i){
+  current=i;
+  imgs.forEach((img,idx)=>img.classList.toggle('active',idx===i));
+  links.forEach((l,idx)=>l.classList.toggle('active',idx===i));
+  dots.forEach((d,idx)=>d.classList.toggle('active',idx===i));
+}
 
-  link.addEventListener('mouseleave', () => {
-    bgImgs.forEach((img, i) => {
-      img.classList.toggle('active', i === 0);
-    });
-  });
+links.forEach((link,i)=>{
+  if(isMobile){
+    link.addEventListener('click',()=>activate(i));
+  }else{
+    link.addEventListener('mouseenter',()=>activate(i));
+    link.addEventListener('mouseleave',()=>activate(0));
+  }
 });
+dots.forEach(d=>d.addEventListener('click',()=>activate(+d.dataset.i)));
 
-// ===== 隐藏加载画面 =====
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    document.querySelector('.loader').classList.add('hidden');
-  }, 400);
-});
+/* ===== Swipe (mobile) ===== */
+if(isMobile){
+  let sx=0;
+  document.addEventListener('touchstart',e=>sx=e.touches[0].clientX);
+  document.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-sx;
+    if(Math.abs(dx)>60){
+      activate((current+(dx<0?1:-1)+imgs.length)%imgs.length);
+    }
+  });
+}
+
+/* ===== Autoplay (mobile only) ===== */
+if(isMobile){
+  timer=setInterval(()=>activate((current+1)%imgs.length),4000);
+  [bg,document.querySelector('.content')].forEach(el=>{
+    el.addEventListener('touchstart',()=>clearInterval(timer));
+  });
+}
+
+/* ===== Loader safety ===== */
+const loader=document.querySelector('.loader');
+setTimeout(()=>loader.classList.add('hidden'),2500);
+window.addEventListener('DOMContentLoaded',()=>setTimeout(()=>loader.classList.add('hidden'),800));
+
+/* ===== Prevent double-tap zoom ===== */
+let lastTap=0;
+document.addEventListener('touchstart',e=>{
+  const now=Date.now();
+  if(now-lastTap<300) e.preventDefault();
+  lastTap=now;
+},{passive:false});
 </script>
-
 </body>
 </html>
